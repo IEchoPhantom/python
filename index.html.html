@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoop & Swirl Creamery - Taste the Good Old Days</title>
+    
+    <!-- Tailwind CSS for rapid, responsive UI development -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for our retro theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom CSS to inject our retro theme and personality */
+        
+        /* 1. Define our brand colors for easy use with Tailwind */
+        :root {
+            --cherry-red: #dc2626;      /* A vibrant, classic red */
+            --turquoise: #0d9488;       /* A cool, retro teal/turquoise */
+            --vanilla-white: #fef9c3; /* A creamy, off-white */
+            --mustard-yellow: #f59e0b;   /* A warm, mustard accent */
+        }
+        
+        /* 2. Apply our chosen fonts */
+        .font-script {
+            font-family: 'Pacifico', cursive;
+        }
+        .font-slab {
+            font-family: 'Roboto Slab', serif;
+        }
+
+        /* 3. Custom component styles */
+        body {
+            background-color: var(--vanilla-white);
+            color: #333;
+        }
+        
+        /* Fun checkerboard pattern using CSS gradients */
+        .checkerboard {
+            background-image:
+                linear-gradient(45deg, #1f2937 25%, transparent 25%),
+                linear-gradient(-45deg, #1f2937 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #1f2937 75%),
+                linear-gradient(-45deg, transparent 75%, #1f2937 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        /* Styling for the active navigation link */
+        .nav-link.active {
+            color: var(--cherry-red);
+            border-bottom: 3px solid var(--mustard-yellow);
+        }
+
+        /* Hero section background image */
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1570197788417-0e82375c6722?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* A little starburst effect for our key selling points */
+        .starburst {
+            position: relative;
+            background: var(--cherry-red);
+            color: var(--vanilla-white);
+            text-align: center;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        
+        /* Sepia filter for that old-timey photo effect */
+        .sepia-filter {
+            filter: sepia(1) contrast(1.1) brightness(0.9);
+        }
+
+        /* Hide pages by default */
+        .page-content {
+            display: none;
+        }
+        /* Show the active page */
+        .page-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="font-slab">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="font-script text-3xl text-[var(--cherry-red)]">
+                Scoop & Swirl
+            </div>
+            <nav class="hidden md:flex space-x-10">
+                <a href="#" class="nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300 pb-1" data-page="home">HOME</a>
+                <a href="#" class="nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300 pb-1" data-page="flavors">THE SCOOP LIST</a>
+                <a href="#" class="nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300 pb-1" data-page="story">OUR STORY</a>
+                <a href="#" class="nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300 pb-1" data-page="location">THE SPOT</a>
+                <a href="#" class="nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300 pb-1" data-page="contact">CONTACT US</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-6 pb-4 space-y-2">
+            <a href="#" class="block nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300" data-page="home">HOME</a>
+            <a href="#" class="block nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300" data-page="flavors">THE SCOOP LIST</a>
+            <a href="#" class="block nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300" data-page="story">OUR STORY</a>
+            <a href="#" class="block nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300" data-page="location">THE SPOT</a>
+            <a href="#" class="block nav-link text-lg font-bold text-gray-700 hover:text-[var(--cherry-red)] transition duration-300" data-page="contact">CONTACT US</a>
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-6 py-12">
+
+        <!-- Home Page Content -->
+        <section id="home" class="page-content">
+            <!-- Hero Section -->
+            <div class="hero-section rounded-lg shadow-xl text-center p-8 md:p-16 flex flex-col items-center justify-center min-h-[60vh] relative overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                <div class="relative z-10">
+                    <h1 class="font-script text-6xl md:text-8xl text-white drop-shadow-lg">Taste the Good Old Days</h1>
+                    <p class="font-slab text-xl md:text-2xl text-[var(--vanilla-white)] mt-4 max-w-2xl mx-auto">Handmade, Small-Batch Ice Cream Served with a Smile.</p>
+                </div>
+            </div>
+
+            <!-- Key Selling Points -->
+            <div class="grid md:grid-cols-3 gap-8 text-center my-16">
+                <div class="p-6">
+                    <div class="starburst w-32 h-32 mx-auto flex items-center justify-center p-4 transform rotate-[-15deg]">
+                        <p class="font-bold text-lg leading-tight">Handmade Daily</p>
+                    </div>
+                    <p class="mt-6 text-gray-600">Using classic, time-tested methods for the perfect scoop.</p>
+                </div>
+                <div class="p-6">
+                    <div class="starburst w-32 h-32 mx-auto flex items-center justify-center p-4 bg-[var(--mustard-yellow)]">
+                        <p class="font-bold text-lg leading-tight">Farm Fresh</p>
+                    </div>
+                    <p class="mt-6 text-gray-600">Made with the best ingredients from local Rajasthan farms.</p>
+                </div>
+                <div class="p-6">
+                    <div class="starburst w-32 h-32 mx-auto flex items-center justify-center p-4 bg-[var(--turquoise)] transform rotate-[15deg]">
+                        <p class="font-bold text-lg leading-tight">Vegan Vibes</p>
+                    </div>
+                    <p class="mt-6 text-gray-600">Delicious dairy-free and vegan options available!</p>
+                </div>
+            </div>
+
+            <!-- Flavor of the Week -->
+            <div class="text-center my-16 bg-white p-8 rounded-lg shadow-xl border-8 border-double border-[var(--turquoise)]">
+                <h2 class="font-script text-4xl text-[var(--turquoise)]">This Week's Rockin' Flavor!</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 mt-6">
+                    <img src="https://images.unsplash.com/photo-1627998395461-3969b251553c?q=80&w=1974&auto=format&fit=crop" alt="Flavor of the week" class="w-48 h-48 object-cover rounded-full border-4 border-[var(--cherry-red)] shadow-lg">
+                    <div>
+                        <h3 class="font-slab font-bold text-3xl text-gray-800">The Jukebox Jive</h3>
+                        <p class="text-lg text-gray-600 mt-2">A rockin' raspberry swirl in a creamy vanilla base. <br>Get it before it's gone!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="my-16">
+                <h2 class="font-script text-4xl text-center text-gray-800 mb-8">What Folks Are Sayin'</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform -rotate-2 mb-8 md:mb-0">
+                        <p class="text-gray-600 italic">"Scoop & Swirl is our family's favorite spot! The ice cream is incredible, and the vibe is just so fun."</p>
+                        <p class="font-bold text-right mt-4 text-[var(--cherry-red)]">- The Sharma Family</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform rotate-2">
+                        <p class="text-gray-600 italic">"The best milkshake I've had in years. It felt like stepping back in time. Absolutely love this place!"</p>
+                        <p class="font-bold text-right mt-4 text-[var(--cherry-red)]">- Priya S.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Flavors Page Content -->
+        <section id="flavors" class="page-content">
+            <h1 class="font-script text-6xl text-center text-[var(--cherry-red)] mb-12">The Scoop List</h1>
+            <div class="bg-white p-8 rounded-lg shadow-xl border-4 border-[var(--cherry-red)]">
+                <!-- Timeless Classics -->
+                <div class="mb-10">
+                    <h2 class="font-slab font-bold text-3xl text-[var(--turquoise)] border-b-2 border-dotted border-[var(--mustard-yellow)] pb-2 mb-6">Timeless Classics</h2>
+                    <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div><h3 class="text-xl font-bold">Vanilla Bean Voyage</h3><p class="text-gray-600">Classic vanilla made with real vanilla beans. Simple, creamy, and dreamy.</p></div>
+                        <div><h3 class="text-xl font-bold">Double Dutch Chocolate</h3><p class="text-gray-600">A rich, decadent chocolate experience for the true connoisseur.</p></div>
+                        <div><h3 class="text-xl font-bold">Strawberry Sweetheart</h3><p class="text-gray-600">Sweet cream swirled with jam made from fresh, local strawberries.</p></div>
+                        <div><h3 class="text-xl font-bold">Mint To Be</h3><p class="text-gray-600">Cooling mint ice cream with chunky chocolate chips.</p></div>
+                    </div>
+                </div>
+                <!-- Seasonal Specials -->
+                <div class="mb-10">
+                    <h2 class="font-slab font-bold text-3xl text-[var(--turquoise)] border-b-2 border-dotted border-[var(--mustard-yellow)] pb-2 mb-6">Rockin' Seasonal Specials</h2>
+                    <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div><h3 class="text-xl font-bold">Monsoon Mango Magic</h3><p class="text-gray-600">The King of Fruits in its creamiest form, made with the finest Rajasthan mangoes.</p></div>
+                        <div><h3 class="text-xl font-bold">Winter Cardamom Crunch</h3><p class="text-gray-600">Warm cardamom-spiced ice cream with bits of pistachio brittle.</p></div>
+                    </div>
+                </div>
+                <!-- Vegan Vibes -->
+                <div>
+                    <h2 class="font-slab font-bold text-3xl text-[var(--turquoise)] border-b-2 border-dotted border-[var(--mustard-yellow)] pb-2 mb-6">Vegan Vibes</h2>
+                    <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div><h3 class="text-xl font-bold">Coconut Cream Dream</h3><p class="text-gray-600">A luscious and creamy coconut-based scoop that's pure tropical paradise.</p></div>
+                        <div><h3 class="text-xl font-bold">Oat Milk Chocolate Chip</h3><p class="text-gray-600">Our classic cookie-and-cream flavor, reimagined with a creamy oat milk base.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Page Content -->
+        <section id="story" class="page-content">
+            <h1 class="font-script text-6xl text-center text-[var(--cherry-red)] mb-12">The Founding of a Classic</h1>
+            <div class="bg-white p-8 rounded-lg shadow-xl flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3">
+                    <img src="https://images.unsplash.com/photo-1564424224827-cd24b89d5871?q=80&w=2070&auto=format&fit=crop" alt="The founders" class="rounded-lg shadow-lg sepia-filter">
+                </div>
+                <div class="md:w-2/3 text-lg text-gray-700 space-y-4 leading-relaxed">
+                    <p>It all started with a simple idea: ice cream should be real. No funny business, no hard-to-pronounce ingredients. Just fresh milk, real sugar, and the best local flavors we could find.</p>
+                    <p>We dusted off Grandma's old recipe book and fired up our first small-batch churner with a mission to bring back the joy of the neighborhood ice cream parlor. A place where families and friends could gather, share a laugh, and enjoy a scoop made with love.</p>
+                    <p>Today, Scoop & Swirl Creamery is our dream come true. We're proud to serve our community in Majrakath, one timeless, handmade scoop at a time. Thanks for being part of our story.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Page Content -->
+        <section id="location" class="page-content">
+             <h1 class="font-script text-6xl text-center text-[var(--cherry-red)] mb-12">Find Your Sweet Spot</h1>
+             <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-xl">
+                    <h2 class="font-slab font-bold text-3xl text-[var(--turquoise)] mb-6">Come On By!</h2>
+                    <div class="space-y-4 text-lg">
+                        <p><strong class="text-gray-800">Address:</strong><br>123 Nostalgia Lane, Majrakath, Rajasthan</p>
+                        <p><strong class="text-gray-800">Phone:</strong><br>+91-123-456-7890</p>
+                        <div>
+                            <strong class="text-gray-800">The Sweet Times:</strong>
+                            <ul class="list-disc list-inside ml-2 text-gray-600">
+                                <li>Monday - Thursday: 12 PM - 9 PM</li>
+                                <li>Friday - Sunday: 11 AM - 10 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-lg shadow-xl overflow-hidden p-2 border-4 border-[var(--turquoise)] checkerboard">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113425.26057158718!2d75.7212006439125!3d26.90604169687783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db418d1845e6d%3A0x101a1e0b9688755!2sJaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1678886543210!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-md"></iframe>
+                </div>
+             </div>
+        </section>
+
+        <!-- Contact Page Content -->
+        <section id="contact" class="page-content">
+            <h1 class="font-script text-6xl text-center text-[var(--cherry-red)] mb-12">Drop Us a Line!</h1>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                <p class="text-center text-lg text-gray-600 mb-8">Got a question, a flavor suggestion, or just want to say hi? We'd love to hear from you, pal!</p>
+                <form>
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 font-bold mb-2 font-slab">Your Name:</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[var(--turquoise)] transition duration-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-700 font-bold mb-2 font-slab">Your Email:</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[var(--turquoise)] transition duration-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-700 font-bold mb-2 font-slab">Spill the Beans (Your Message):</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[var(--turquoise)] transition duration-300"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-[var(--cherry-red)] text-white font-bold text-xl px-8 py-3 rounded-lg shadow-md hover:bg-[var(--mustard-yellow)] hover:scale-105 transform transition duration-300">
+                            Send It!
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-[var(--turquoise)] text-white mt-16 pt-10 pb-4">
+        <div class="container mx-auto px-6 text-center border-t-4 border-dotted border-[var(--vanilla-white)] pt-4">
+            <p class="font-script text-3xl">Scoop & Swirl Creamery</p>
+            <p class="mt-2">123 Nostalgia Lane, Majrakath, Rajasthan</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="hover:opacity-75 transition duration-300">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.343 2.525c.636-.247 1.363-.416 2.427-.465C9.784 2.013 10.138 2 12.315 2zm0 1.624c-2.374 0-2.716.01-3.667.058-1.159.053-1.604.249-1.922.406-.417.213-.71.488-.974.752-.264.264-.539.557-.752.974-.157.318-.353.763-.406 1.922-.048.951-.058 1.293-.058 3.667s.01 2.716.058 3.667c.053 1.159.249 1.604.406 1.922.213.417.488.71.752.974.264.264.557.539.974.752.318.157.763.353 1.922.406.951.048 1.293.058 3.667.058s2.716-.01 3.667-.058c1.159-.053 1.604-.249 1.922-.406.417-.213.71-.488.974-.752.264-.264.539-.557.752-.974.157-.318.353-.763.406-1.922.048-.951.058-1.293.058-3.667s-.01-2.716-.058-3.667c-.053-1.159-.249-1.604-.406-1.922-.213-.417-.488-.71-.752-.974-.264-.264-.557-.539-.974-.752-.318-.157-.763-.353-1.922-.406-.951-.048-1.293-.058-3.667-.058zM12 6.865a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zm0 1.624a3.51 3.51 0 110 7.02 3.51 3.51 0 010-7.02zM16.53 6.57a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z" clip-rule="evenodd" /></svg>
+                </a>
+            </div>
+             <p class="text-sm text-[var(--vanilla-white)] opacity-80 mt-6">&copy; 2025 Scoop & Swirl Creamery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Simple JavaScript for Single-Page Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageContents = document.querySelectorAll('.page-content');
+            const mainContent = document.getElementById('main-content');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function showPage(pageId) {
+                // Hide all page content sections
+                pageContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Deactivate all navigation links
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Show the selected page content
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.add('active');
+                }
+
+                // Activate the corresponding nav link(s)
+                document.querySelectorAll(`.nav-link[data-page="${pageId}"]`).forEach(link => {
+                    link.classList.add('active');
+                });
+                
+                // Scroll to the top of the content area
+                mainContent.scrollIntoView({ behavior: 'smooth' });
+
+                // Hide mobile menu after navigation
+                mobileMenu.classList.add('hidden');
+            }
+
+            // Add click event listeners to all nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default link behavior
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+            
+            // Mobile menu toggle
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Show the home page by default on initial load
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
+
