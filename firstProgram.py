@@ -962,3 +962,387 @@ def print_list2(lst, index=0):
         print_list2(lst, index+1)
 
 print_list2([1,2,3,4,5])  # This will print 1 2 3 4 5
+print("\n")
+#===================================
+# |||  SEVENTH LECTURE OF PYTHON  ||| (FILE HANDLING) / 12/11/2025
+#===================================
+
+# File handling in Python
+# File handling in Python
+# File handling is an important part of programming as it allows us to read from and write to
+# files on our computer. In Python, we can handle files using built-in functions and methods.
+# Opening a file
+f= open("D:\\new archit\\codes py\\python\\ego.txt", "r")  # This will open the file in read mode
+# data= f.read()  # This will read the entire content of the file
+# print(data)  # This will print the content of the file
+# print(type(data))  # This will print the type of data as str
+# f.seek(0)
+# #reading a file
+# x=f.read(7)
+# print(x)  # This will print the next 7 characters from the file
+# f.seek(0)
+# x=f.readline(9)
+# print(x)  # This will print the first line of the file
+# x=f.readline()
+# print(x)
+# x=f.readline()
+# print(x)
+
+# f.seek(0)
+# #writing to a file
+# f= open("ego.txt", "a")
+# f.write("\nnew line added using write method")  # This will write a new line to the file
+
+# f= open("ego.txt", "r+") # This will open the file in read and write mode
+# #this allows to write over it not rewrite the data
+# f.write("overwritten line using r+ mode")  # This will overwrite the first line of the file
+# f.seek(0)
+# print(f.read())  # This will print the content of the file after overwriting
+f.seek(0)
+f= open("D:\\new archit\\codes py\\python\\ego.txt", "a+")
+
+print(f.read())  #pointr is at the end of the file so nothing will be printed
+f.write("new line added using a+ mode")  # This will append a new line to the file
+print(f.read())  # pointer is at the end of the file so nothing will be printed
+
+with open("D:\\new archit\\codes py\\python\\ego.txt", "r") as f:  # This will automatically close the file after the block
+    f.seek(0)
+    data= f.read()
+    print(data)  # This will print the content of the file
+
+# #closing a file
+f.close()  # This will close the file
+print(f.closed)  # This will print True if the file is closed, otherwise False
+
+#deleting a file
+import os
+with open("ego1.txt", "w") as f:
+    f.write("This is a temporary file to be deleted.")
+os.remove("ego1.txt")  # This will delete the file named "ego1.txt"
+
+with open(r"D:\\new archit\\codes py\\python\\ego2.txt", "w+") as f:
+    # Write initial content and read it back
+    f.write("hi everyone\nwe are learning file handling in python")
+    f.seek(0)
+    x = f.read()
+    print(x)
+
+# To replace text safely: read existing content, perform replacement, then overwrite.
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "r") as f:
+    x = f.read()
+y = x.replace("hi", "hello")
+
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "w") as f:
+    f.write(y)
+
+# Show updated content
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "r") as f:
+    print(f.read())
+
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "r") as f:
+    x=f.read()
+if "learning" in x:
+    print(True)
+a=x.split("\n") #to check the line no and index of word in that line
+print(a)
+c=0
+for i in a:
+    c=c+1
+    if "learning" in i:
+        b=i.index("learning")
+        print(b,c)
+
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "w+") as f:
+    f.write("1,2,3,4,5,6,6,7,8,9,4,732,5,2")
+
+with open("D:\\new archit\\codes py\\python\\ego2.txt", "r") as f:
+    x=f.read() 
+a=x.split(",")
+c=0
+for i in a:
+    if int(i)%2==0:
+        c=c+1
+print(c)
+
+#===================================
+# |||  EIGHTH LECTURE OF PYTHON  ||| (OOPS) / 24/11/2025
+#===================================
+# Clean class example: Student
+# -----------------------------
+# Explanation:
+#  - `Student` demonstrates the difference between class-level defaults and instance attributes.
+#  - The __init__ accepts optional arguments. If not provided, class defaults are used.
+
+class Student:
+    # class-level defaults
+    fname = "archit"
+    bage = 23
+
+    def __init__(self, fname=None, bage=None):
+        # If no values are provided, fall back to class defaults
+        self.name = fname if fname is not None else Student.fname
+        self.age = bage if bage is not None else Student.bage
+
+    def __str__(self):
+        # Printable representation
+        return f"{self.name} (age={self.age})"
+
+# Example usage
+s1 = Student()                # Uses defaults: name archit, age 23
+s2 = Student("rohan", 22)    # Provide explicit values
+s3 = Student("it")           # Provide only name, default age
+
+print(s1)       # prints: archit (age=23)
+print(s1.name)  # prints: archit
+print(s1.age)   # prints: 23
+print(s2)       # prints: rohan (age=22)
+print(s3)       # prints: it (age=23)
+
+# Important notes:
+# - If your __init__ signature requires two args (no defaults), then calling Student(4)
+#   will raise a TypeError because Python will expect two positional arguments.
+# - Avoid redeclaring a class with the same name: the later definition replaces the earlier one.
+
+# Note: don't re-declare a class name you've already used above —
+# the second declaration would overwrite the earlier `student` class and
+# remove the behavior provided there. Use a different name or update the existing one.
+
+# A well-formed class with default values and a friendly string representation:
+class Student:
+    # class-level defaults
+    fname = "archit"
+    bage = 23
+
+    def __init__(self, fname=None, bage=None):
+        # If no values are provided, fall back to class defaults
+        self.name = fname if fname is not None else Student.fname
+        self.age = bage if bage is not None else Student.bage
+
+    def __str__(self):
+        # `print(instance)` invokes __str__ if present — otherwise you get an object repr
+        return f"{self.name} (age={self.age})"
+
+# Example usage — name is capitalized to follow convention (class names should be PascalCase)
+s1 = Student()                # Uses defaults: name archit, age 23
+s2 = Student("it", 3)       # Provide explicit values
+print(s1)                     # prints: archit (age=23)
+print(s1.name)                # prints: archit
+print(s1.age)                 # prints: 23
+print(s2)                     # prints: it (age=3)
+
+# If you want to allow calling with a single numeric arg (like Student(4)) you should
+# design your __init__ accordingly, but that's usually ambiguous. Prefer keyword args.
+class student:
+    fname= "archit"
+    bage= 23
+    def __init__(self, fname, bage):
+        self.name = fname
+        self.age = bage
+    
+s1= student("it", 3)
+# s2= student(4) error as 2 arguments required
+print(s1.name)  # This will print "archit"
+print(s1.age)   # This will print 23
+
+# class student:
+#     fname= None
+#     def __init__(self):
+   
+# s1= student()
+# # s2= student(4) error as 2 arguments required
+# print(s1)  # This will print "archit"
+#    # This will print 23
+
+# class Student:
+
+#     def __init__(self, Name, english, maths, science):
+#         self.name= Name
+#         self.eng= english
+#         self.math= maths
+#         self.sci= science
+#     def avg(self):
+#         return (self.eng + self.math + self.sci)/3
+    
+# Name= input("Enter your name:")
+# english= int(input("Enter your english marks:"))
+# maths= int(input("Enter your maths marks:"))
+# science= int(input("Enter your science marks:"))
+
+# s= Student(Name, english, maths, science)
+# print(f"The average marks of {s.name} is {s.avg()}")
+# Name= input("Enter your name:")
+# s= Student(Name, english, maths, science)
+# print(f"The average marks of {s.name} is {s.avg()}")
+
+class Student:
+
+    def __init__(self, Name, english):
+        self.name= Name
+        self.__eng= english
+    # 1) Method that prints the average (no return)
+    def avg_print(self):
+        print((self.__eng) / 3)
+
+    # 2) Method that returns the average value (preferred)
+    # def avg(self):
+    #     return (self.__eng) / 3
+    def __hello(self):
+        print("hello")  
+  
+a= Student("archit", 90)
+print(a.name)  # prints the student name
+# print(a.__eng)  # AttributeError: __eng is private and name-mangled
+
+# CASE A: calling the method that returns a value
+# print(a.avg())        # prints the returned value from avg()
+
+# CASE B: calling the method that prints directly (no return)
+a.avg_print()         # prints the average, but the method returns None
+print(a.avg_print())  # prints the average, then prints 'None' because avg_print returns None
+
+# Accessing a "private" attribute / method by name-mangling (not recommended):
+# print(a._Student__eng)      # can access the "private" attribute in CPython
+# a._Student__hello()         # can call the private method in CPython
+
+
+#===================================
+# ||| /? PYTHON LIBRARIES ||| (LIB)  7/12/2025
+#===================================
+
+
+
+import math
+a=6
+b=12
+c=5
+# calculate the discriminant
+d = (b**2) - (4*a*c)
+# find two solutions
+sol1 = (-b-math.sqrt(d))/(2*a)
+sol2 = (-b+math.sqrt(d))/(2*a)
+print('The solution are {} and {}'.format(sol1,sol2))  # This will print the two solutions of the quadratic equation
+
+import numpy 
+arr = numpy.array([1, 2, 3, 4, 5]) 
+print(arr)
+
+#Use a tuple to create a NumPy array:
+import numpy as np 
+arr = np.array((1, 2, 3, 4, 5,6,7,8,9)) 
+print(arr)
+print(arr[1:3])
+print(arr[1:6:2])
+print(arr[::2])
+
+# import matplotlib.pyplot as plt 
+# import numpy as np 
+# x = np.array(["A", "B", "C", "D"]) 
+# y = np.array([3, 8, 1, 10]) 
+# plt.bar(y,x)
+# plt.show()
+
+# import matplotlib.pyplot as plt
+# x = [1,1,2,3,3,5,7,8,9,10,
+# 10,13,13,15,16,17,18,18,
+# 18,19,20,21,21,23,24,24,25,25,
+# 25,25,26,26,26,27,27,27,27,27,
+# 29,30,30,31,33,34,34,34,35,36,
+# 36,37,37,38,38,39,40,41,41,42,
+# 43,44,45,45,46,47,48,48,49,50,60,
+# 61,63,64,65,66,68,70,71,72,74,
+# 75,77,81,83,84,87,89,90,90,91
+# ,92,94,95,96,98,99,100]
+# plt.hist(x, bins=91, histtype="bar")
+# plt.xlabel('X-Axis')
+# plt.ylabel('Y-Axis')
+# plt.title('matplotlib.pyplot.hist() function Example',fontweight ="bold")
+# plt.show()
+
+# import matplotlib.pyplot as plt
+# x = [1,1,2,3,3,5,7,8,9,10,
+# 10,11,11,13,13,15,16,17,18,18,
+# 18,19,20,21,21,23,24,24,25,25,
+# 25,25,26,26,26,27,27,27,27,27,
+# 29,30,30,31,33,34,34,34,35,36,
+# 36,37,37,38,38,39,40,41,41,42,
+# 43,44,45,45,46,47,48,48,49,50,
+# 51,52,53,54,55,55,56,57,58,60,
+# 61,63,64,65,66,68,70,71,72,74,
+# 75,77,81,83,84,87,89,90,90,91
+# ]
+# plt.style.use('ggplot')
+# plt.hist(x, bins=[0,10,20,30,40,50,60,70,80,90,99],rwidth=0.2,align="right")
+# plt.show()
+
+# import matplotlib.pyplot as plt 
+# import numpy as np 
+# xpoints = np.array([0, 6]) 
+# ypoints = np.array([-45, 56]) 
+# zpoints = np.array([-45, 40])
+# a = np.array([0, 40])
+# plt.plot(xpoints) 
+# plt.show()
+
+# import matplotlib.pyplot as plt 
+# import numpy as np
+# ypoints = np.array([3, 8, 1, 10, 5, 7]) 
+# plt.plot(ypoints, marker = 'x',linestyle = 'dotted', color='r', linewidth = '2.5') 
+# font1 = {'family':'serif','color':'blue','size':20} 
+# font2 = {'family':'serif','color':'darkred','size':15} 
+# plt.title("Sports Watch Data",fontdict=font1)
+# plt.xlabel("Average Pulse",fontdict=font2)
+# plt.ylabel("Calorie Burnage",fontdict=font2) 
+# plt.show()
+
+# import matplotlib.pyplot as plt 
+# import numpy as np 
+# x1 = np.array([0, 1, 2, 3]) 
+# y1 = np.array([3, 8, 1, 10]) 
+# x2 = np.array([0, 1, 2, 3]) 
+# y2 = np.array([6, 2, 7, 11]) 
+# plt.plot(x1, y1, x2, y2) 
+# plt.grid(linestyle = 'dotted',which='major') 
+# plt.show()
+
+# import matplotlib.pyplot as plt 
+# import numpy as np 
+# # x = np.array([5,7,8,7,2,17,2,9,4,11,12,9,6]) 
+# x = np.array(['a','b','c','d','e','f','g','h','i','j','k','l','m'])
+# y = np.array([99,86,87,88,111,86,103,87,94,78,77,85,86]) 
+# plt.scatter(x, y) 
+# plt.show()
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+# x = np.arange(0,4*np.pi,np.pi) # start,stop,step
+# y = np.sin(x)
+# plt.plot(x,y)
+# plt.show()
+
+# from matplotlib import pyplot as plt
+# import numpy as np
+# # Creating dataset
+# cars = ['AUDI', 'BMW', 'FORD',
+# 'TESLA', 'JAGUAR', 'MERCEDES']
+# data = [23, 17, 35, 29, 12, 41]
+# # Creating plot
+# fig = plt.figure(figsize=(10, 7))
+# plt.pie(data, labels=cars)
+# # show plot
+# plt.show()
+
+#Program: Multiple bar charts
+import numpy as np
+import matplotlib.pyplot as plt
+X = ['Group A','Group B','Group C','Group D']
+Ygirls = [10,20,20,40]
+Zboys = [20,30,25,30]
+X_axis = np.arange(len(X))
+plt.bar(X_axis - 0.2, Ygirls, 0.4, label = 'Girls')
+plt.bar(X_axis + 0.2, Zboys, 0.4, label = 'Boys')
+plt.xticks(X_axis, X)
+plt.xlabel("Groups")
+plt.ylabel("Number of Students")
+plt.title("Number of Students in each group")
+plt.legend()
+plt.show()

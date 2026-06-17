@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Dashboard Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        
+        .gauge-card {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            transition: transform 0.2s;
+        }
+        
+        .gauge-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .alert-blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <div class="p-6 max-w-[1800px] mx-auto">
+        <!-- Header -->
+        <div class="mb-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-white">Compression Molding Monitor</h1>
+                <p class="text-gray-400 text-sm mt-1">Real-time IoT Dashboard · Brake Shoe Manufacturing</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <select class="bg-gray-800 border border-gray-700 rounded px-4 py-2 text-sm">
+                    <option>Last 1 Hour</option>
+                    <option>Last 4 Hours</option>
+                    <option>Last 24 Hours</option>
+                </select>
+                <div class="flex items-center gap-2 px-4 py-2 bg-green-900/30 border border-green-500/50 rounded">
+                    <div class="w-2 h-2 bg-green-500 rounded-full pulse"></div>
+                    <span class="text-green-400 text-sm font-medium">System Online</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 1: Critical KPIs -->
+        <div class="grid grid-cols-5 gap-4 mb-6">
+            <!-- Temperature -->
+            <div class="gauge-card border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-orange-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div class="text-sm text-gray-400 mb-1">Mold Temperature</div>
+                <div class="text-4xl font-bold text-orange-400">172.3°C</div>
+                <div class="text-xs text-gray-500 mt-2">Target: 180°C</div>
+            </div>
+
+            <!-- Pressure -->
+            <div class="gauge-card border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <path stroke-linecap="round" stroke-width="2" d="M12 6v6l4 2"/>
+                </svg>
+                <div class="text-sm text-gray-400 mb-1">Hydraulic Pressure</div>
+                <div class="text-4xl font-bold text-green-400">148 bar</div>
+                <div class="text-xs text-gray-500 mt-2">Nominal: 150 bar</div>
+            </div>
+
+            <!-- Cycle Time -->
+            <div class="gauge-card border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div class="text-sm text-gray-400 mb-1">Current Cycle Time</div>
+                <div class="text-4xl font-bold text-purple-400">45.8s</div>
+                <div class="text-xs text-gray-500 mt-2">Target: 45-47s</div>
+            </div>
+
+            <!-- Cycles -->
+            <div class="gauge-card border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-cyan-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                <div class="text-sm text-gray-400 mb-1">Cycles Completed</div>
+                <div class="text-4xl font-bold text-cyan-400">247</div>
+                <div class="text-xs text-gray-500 mt-2">Today's production</div>
+            </div>
+
+            <!-- State -->
+            <div class="gauge-card border border-gray-700 rounded-lg p-6 flex flex-col items-center justify-center">
+                <svg class="w-8 h-8 text-white mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <div class="text-sm text-gray-400 mb-1">Machine State</div>
+                <div class="px-4 py-2 rounded-full font-bold text-lg bg-green-500 mt-2">Pressing</div>
+            </div>
+        </div>
+
+        <!-- ROW 2: Trend Charts -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <!-- Temperature Chart -->
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    Temperature Trend vs Predicted
+                </h2>
+                <div class="h-64 flex items-end justify-around gap-2 border-l border-b border-gray-700 pl-4 pb-4">
+                    <div class="w-full flex items-end gap-1">
+                        <div class="bg-orange-500 w-full" style="height: 65%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 72%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 78%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 81%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 85%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 87%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 88%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 90%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 86%"></div>
+                        <div class="bg-orange-500 w-full" style="height: 84%"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                    <span>10:00</span>
+                    <span>10:15</span>
+                    <span>10:30</span>
+                    <span>10:45</span>
+                </div>
+                <div class="flex gap-4 mt-4 text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-0.5 bg-orange-500"></div>
+                        <span class="text-gray-400">Actual Temp</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-0.5 bg-yellow-500 border-dashed border-b-2"></div>
+                        <span class="text-gray-400">Predicted Temp</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pressure Chart -->
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    </svg>
+                    Pressure Trend vs Predicted
+                </h2>
+                <div class="h-64 flex items-end justify-around gap-2 border-l border-b border-gray-700 pl-4 pb-4">
+                    <div class="w-full flex items-end gap-1">
+                        <div class="bg-blue-500 w-full" style="height: 45%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 55%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 68%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 75%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 82%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 88%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 92%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 90%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 87%"></div>
+                        <div class="bg-blue-500 w-full" style="height: 85%"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-2 text-xs text-gray-400">
+                    <span>10:00</span>
+                    <span>10:15</span>
+                    <span>10:30</span>
+                    <span>10:45</span>
+                </div>
+                <div class="flex gap-4 mt-4 text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-0.5 bg-blue-500"></div>
+                        <span class="text-gray-400">Actual Pressure</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-0.5 bg-green-500 border-dashed border-b-2"></div>
+                        <span class="text-gray-400">Predicted Pressure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3: Diagnostics -->
+        <div class="grid grid-cols-3 gap-4">
+            <!-- Vibration -->
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Vibration Level
+                </h2>
+                <div class="h-48 flex items-end gap-1 border-l border-b border-gray-700 pl-2 pb-2">
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 35%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 42%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 48%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 55%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 62%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 58%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 52%"></div>
+                    <div class="bg-gradient-to-t from-red-600 to-red-400 w-full opacity-60" style="height: 45%"></div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Normal range: 0-10 units</p>
+            </div>
+
+            <!-- Energy -->
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Current Draw (Energy)
+                </h2>
+                <div class="h-48 flex items-end gap-1 border-l border-b border-gray-700 pl-2 pb-2">
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 25%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 28%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 72%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 85%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 90%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 88%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 82%"></div>
+                    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full opacity-60" style="height: 30%"></div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Avg: 18.5A | Current: 26.8A</p>
+            </div>
+
+            <!-- Alert Log -->
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    Alert Log
+                </h2>
+                <div class="space-y-2">
+                    <div class="p-2 rounded text-xs border-l-4 bg-yellow-900/20 border-yellow-500">
+                        <div class="font-semibold">Temperature approaching upper limit</div>
+                        <div class="text-gray-400 text-[10px] mt-1">10:42:15</div>
+                    </div>
+                    <div class="p-2 rounded text-xs border-l-4 bg-yellow-900/20 border-yellow-500">
+                        <div class="font-semibold">Pressure fluctuation detected</div>
+                        <div class="text-gray-400 text-[10px] mt-1">10:38:42</div>
+                    </div>
+                    <div class="p-2 rounded text-xs border-l-4 bg-red-900/20 border-red-500 alert-blink">
+                        <div class="font-semibold">Vibration spike detected</div>
+                        <div class="text-gray-400 text-[10px] mt-1">10:35:18</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-6 text-center text-xs text-gray-500">
+            Model-based anomaly detection active · Heat transfer equation: ∂T/∂t = α∇²T · Pressure dynamics: dP/dt = Q<sub>pump</sub> - Q<sub>leak</sub>
+        </div>
+    </div>
+</body>
+</html>
